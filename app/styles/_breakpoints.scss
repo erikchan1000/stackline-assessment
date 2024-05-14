@@ -1,0 +1,32 @@
+@use 'sass:map';
+
+$breakpoints: (
+  mobile: 0px,
+  tablet: 768px,
+  tabletmedium: 1024px,
+  desktopmedium: 1280px,
+  desktop: 1440px,
+  desktopxl: 1920px,
+);
+
+@mixin mq($breakpoint) {
+  @media (min-width: #{map.get($breakpoints, $breakpoint)}) {
+    @content;
+  }
+}
+
+@mixin mqMax($breakpoint) {
+  @media (max-width: #{map.get($breakpoints, $breakpoint) - 1}) {
+    @content;
+  }
+}
+
+@mixin mqHelper($property, $values...) {
+  $widths: map.values($breakpoints);
+
+  @for $i from 0 to length($values) {
+    @media (min-width: #{nth($widths, $i+1)}) {
+      #{$property}: #{nth($values, $i + 1)};
+    }
+  }
+}
