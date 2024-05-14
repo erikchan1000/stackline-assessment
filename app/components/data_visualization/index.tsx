@@ -8,7 +8,9 @@ import { DataTable } from './data_table';
 import { addCommas } from './add_commas';
 
 export const DataVisualization = ({sales}: DataVisualizationInterface) => {
+  let minDate = new Date(2020, 0, 1).getTime()
   const formattedDate = sales.map(item => {
+      minDate = Math.min(minDate, new Date(item.weekEnding).getTime())
       return {
         ...item,
         date: new Date(item.weekEnding),
@@ -69,7 +71,7 @@ export const DataVisualization = ({sales}: DataVisualizationInterface) => {
             },
             tickNumber: 9,
             tickMinStep: new Date(2020, 1, 1).getTime() - new Date(2020, 0, 1).getTime(),
-            min: new Date(2017, 0, 1).getTime(),
+            min: minDate,
           }
         ]}
         tooltip={{
