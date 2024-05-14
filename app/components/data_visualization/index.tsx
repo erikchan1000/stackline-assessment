@@ -19,15 +19,6 @@ export const DataVisualization = ({sales}: DataVisualizationInterface) => {
   )
 
   const years = [...new Set(formattedDate.map(item => item.year))]
-  console.log(years)
-  console.log("Series", years.map(year => {
-    return {
-      type: 'line',
-      dataKey: 'retailSales',
-      name: year.toString(),
-    }
-  }))
-
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
   return (
