@@ -68,6 +68,8 @@ export const DataVisualization = ({sales}: DataVisualizationInterface) => {
               return `${months[date.getMonth()]}`
             },
             tickNumber: 9,
+            tickMinStep: new Date(2020, 1, 1).getTime() - new Date(2020, 0, 1).getTime(),
+            min: new Date(2017, 0, 1).getTime(),
           }
         ]}
         tooltip={{
