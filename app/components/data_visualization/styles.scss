@@ -1,3 +1,11 @@
-.chart {
+.title {
+  font-size: 24px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+}
 
+.data-visualization {
+  display: flex;
+  flex-direction: column;
 }

@@ -20,19 +20,30 @@ export const DataVisualization = ({sales}: DataVisualizationInterface) => {
 
   const years = [...new Set(formattedDate.map(item => item.year))]
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  const currencyFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format;
 
   return (
     <div className="data-visualization">
+      <div className='title'>
+        Retail Sales
+      </div>
       <LineChart
-        title="Retail Sales"
         dataset={formattedDate}
         series={
           years.map(year => {
             return {
               type: 'line',
               label: year.toString(),
-              dataKey: 'retailSales',
               name: year.toString(),
+              showMark: false,
+              connectNulls: false,
+              valueFormatter: (value: any) => {
+                console.log(value)
+                return `$${value}`
+              },
               data: formattedDate.map(item => {
                 if(item.year === year) {
                   return item.retailSales
@@ -49,7 +60,7 @@ export const DataVisualization = ({sales}: DataVisualizationInterface) => {
           {
             dataKey: 'retailSales',
             scaleType: 'linear',
-            valueFormatter: (value: number) => `$${value/1000}`,
+            valueFormatter: (v) => (v === null ? '' : currencyFormatter(v)),
           }
         ]}
         xAxis={[
@@ -62,6 +73,8 @@ export const DataVisualization = ({sales}: DataVisualizationInterface) => {
             tickNumber: 9,
           }
         ]}
+        tooltip={{
+        }}
       />
       <DataTable sales={formattedDate} />
     </div>
