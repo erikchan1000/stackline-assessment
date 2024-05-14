@@ -5,6 +5,7 @@ import './styles.scss';
 import { DataVisualizationInterface } from './interface';
 import { LineChart } from '@mui/x-charts'
 import { DataTable } from './data_table';
+import { addCommas } from './add_commas';
 
 export const DataVisualization = ({sales}: DataVisualizationInterface) => {
   const formattedDate = sales.map(item => {
@@ -20,10 +21,7 @@ export const DataVisualization = ({sales}: DataVisualizationInterface) => {
 
   const years = [...new Set(formattedDate.map(item => item.year))]
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const currencyFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format;
+
 
   return (
     <div className="data-visualization">
@@ -41,8 +39,7 @@ export const DataVisualization = ({sales}: DataVisualizationInterface) => {
               showMark: false,
               connectNulls: false,
               valueFormatter: (value: any) => {
-                console.log(value)
-                return `$${value}`
+                return value === null ? 'No Data' : `$${addCommas(value)}`
               },
               data: formattedDate.map(item => {
                 if(item.year === year) {
@@ -60,7 +57,7 @@ export const DataVisualization = ({sales}: DataVisualizationInterface) => {
           {
             dataKey: 'retailSales',
             scaleType: 'linear',
-            valueFormatter: (v) => (v === null ? '' : currencyFormatter(v)),
+            valueFormatter: (v) => (v === null ? '' : `$${addCommas(v/1000)}`),
           }
         ]}
         xAxis={[

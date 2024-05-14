@@ -3,10 +3,8 @@
 import React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import { DataTableInterface } from './interface'
+import { addCommas } from './add_commas'
 
-const addCommas = (num: number) => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
 export const DataTable = ({sales}: DataTableInterface) => {
   const columns = [
     { field: 'weekEnding', headerName: 'Week Ending', sortable: true, flex: 1},
